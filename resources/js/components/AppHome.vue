@@ -1,15 +1,18 @@
 <template>
      <div>
         <toolbar></toolbar>
-        <appfooter></appfooter>
+        <router-view></router-view>
+        <app-footer></app-footer>
      </div>
 </template>
 
 <script>
-import toolbar from "./ToolBar.vue";
-import appfooter from "./AppFooter.vue";
+import toolbar from "./ToolBar";
+import AppFooter from "./AppFooter";
+import Login from "./login/Login"
+
 export default {
-  components: { toolbar ,appfooter},
+  components: { toolbar ,AppFooter,Login},
   mounted() {
     console.log("Component mounted.");
   }

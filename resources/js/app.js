@@ -14,9 +14,9 @@ import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 
 Vue.component('AppHome', require('./components/AppHome.vue').default);
-Vue.component('ToolBar', require('./components/ToolBar.vue').default);
 
-import router from "./Router/router.js";
+
+import router from "./Router/routes.js";
 
 const app = new Vue({
     el: '#app',
