@@ -2,15 +2,9 @@
   <v-toolbar>
     <v-toolbar-title><router-link to="/">LaraForum</router-link></v-toolbar-title>
     <v-spacer></v-spacer>
-    <div class="hidden-sm-and-down">
-      <router-link to="/forum">
-         <v-btn flat><v-icon large color="blue darken-2">chat</v-icon> Forum</v-btn>
-      </router-link>
-      <v-btn flat>
-        <v-icon large color="blue darken-2">edit</v-icon> Je pose une question</v-btn>
-      <v-btn flat> <v-icon large color="blue darken-2">reorder</v-icon>Ajouter une catégorie</v-btn>
-      <router-link to="/login">
-        <v-btn flat>Connexion</v-btn>
+    <div class="hidden-sm-and-down">  
+      <router-link v-for="item in items" :key="item.title" :to="item.to" v-if="item.show">
+        <v-btn flat>{{ item.title }}</v-btn>
       </router-link>
     </div>
   </v-toolbar>
@@ -18,7 +12,24 @@
 
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      items: [
+        { title: "Forum", to: "/forum", show: true },
+        { title: "Login", to: "/login", show: !User.loggedIn() },
+        { title: "Ask question", to: "/ask", show: User.loggedIn() },
+        { title: "Category", to: "/category", show: User.loggedIn() },
+        { title: "Logout", to: "/logout", show: User.loggedIn() }
+      ]
+    };
+  },
+  created() {
+    eventBus.$on("logout", () => {
+      User.logout();
+    });
+  }
+};
 </script>
 
 <style>
