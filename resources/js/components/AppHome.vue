@@ -9,10 +9,10 @@
 <script>
 import toolbar from "./ToolBar";
 import AppFooter from "./AppFooter";
-import Login from "./login/Login"
+import Login from "./login/Login";
 
 export default {
-  components: { toolbar ,AppFooter,Login},
+  components: { toolbar, AppFooter, Login },
   mounted() {
     console.log("Component mounted.");
   }

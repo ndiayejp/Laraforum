@@ -8,7 +8,8 @@ import About from "../components/About"
 
 const routes = [{
         path: '/login',
-        component: Login
+        component: Login,
+        name: 'login'
     },
     {
         path: '/about',
@@ -20,6 +21,8 @@ const routes = [{
 const router = new VueRouter({
     routes,
     mode: 'history',
+    history: true,
+    hashbang: false
 
 });
 

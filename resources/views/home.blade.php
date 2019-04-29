@@ -15,7 +15,8 @@
 
   <script src="{{ asset('js/app.js') }}"></script>
    <script>
-    new Vue({ el: '#app' })
+    import App from "./AppHome.vue";
+    new Vue({ el: '#app',render: h => h(App) })
   </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <template>
   <v-toolbar>
-    <v-toolbar-title>LaraForum</v-toolbar-title>
+    <v-toolbar-title><router-link to="/">LaraForum</router-link></v-toolbar-title>
     <v-spacer></v-spacer>
     <div class="hidden-sm-and-down">
       <router-link to="/forum">
@@ -22,7 +22,7 @@ export default {};
 </script>
 
 <style>
-  .application a{
-    text-decoration:none;
-  }
+.application a {
+  text-decoration: none;
+}
 </style>
