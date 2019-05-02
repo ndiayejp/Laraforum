@@ -8,9 +8,9 @@
             <v-text-field v-model="form.password" label="Password"  type="password" autocomplete="off" required></v-text-field>
             <span class="red--text" v-if="errors.password">{{ errors.password[0] }}</span>
             <v-text-field v-model="form.password_confirm" label="Password confirm"  type="password" autocomplete="off" required></v-text-field>
-            <v-btn color="success" type="submit">  S'inscrire </v-btn> 
+            <v-btn color="primary" type="submit">  S'inscrire </v-btn> 
             <router-link to="/login">
-                <v-btn flat> Déjà membre</v-btn>
+                <v-btn flat> Déjà membre?</v-btn>
             </router-link>
         </v-form>
     </v-container>

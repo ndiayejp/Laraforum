@@ -10,6 +10,7 @@ import Forum from "../components/forum/Forum"
 import Category from "../components/forum/Category"
 import Ask from "../components/forum/Ask"
 import Logout from "../components/login/Logout"
+import Read from "../components/forum/Read"
 const routes = [{
         path: '/login',
         component: Login,
@@ -40,6 +41,11 @@ const routes = [{
     {
         path: '/logout',
         component: Logout
+    },
+    {
+        path: "/question/:slug",
+        component: Read,
+        name: "read"
     }
 ]
 

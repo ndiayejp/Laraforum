@@ -20,3 +20,8 @@ Route::get('/', function () {
 Route::get('/{any}', function () {
     return view('home');
 })->where('any', '.*');
+
+
+Route::get('/{any}{any1}', function () {
+    return view('home');
+});
