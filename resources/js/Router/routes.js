@@ -7,10 +7,12 @@ import Login from "../components/login/Login"
 import About from "../components/About"
 import Signup from "../components/login/Signup"
 import Forum from "../components/forum/Forum"
-import Category from "../components/forum/Category"
 import Ask from "../components/forum/Ask"
 import Logout from "../components/login/Logout"
 import Read from "../components/forum/Read"
+import createCategory from "../components/category/createCategory"
+import User from '../Helpers/User';
+
 const routes = [{
         path: '/login',
         component: Login,
@@ -35,8 +37,9 @@ const routes = [{
     },
     {
         path: "/category",
-        component: Category,
-        name: "category"
+        component: createCategory,
+        name: "category",
+
     },
     {
         path: '/logout',
@@ -46,6 +49,10 @@ const routes = [{
         path: "/question/:slug",
         component: Read,
         name: "read"
+    },
+    {
+        path: "/create",
+        component: createCategory
     }
 ]
 

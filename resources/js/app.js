@@ -22,6 +22,8 @@ window.User = User
 import md from "marked"
 window.md = md
 
+
+
 window.eventBus = new Vue();
 
 Vue.component('AppHome', require('./components/AppHome.vue').default);

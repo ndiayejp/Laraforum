@@ -4,8 +4,9 @@
             <v-card-title primary-title>
             <div>
                 <h3 class="headline mb-0">
+                  {{ data.user }} : 
                     <router-link :to="data.path">
-                      {{ data.user }}  {{ data.title }}
+                       {{ data.title }}
                     </router-link>
                 </h3>
                 <div class="grey--text"> {{ data.created_at }}</div>

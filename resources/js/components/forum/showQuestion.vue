@@ -1,13 +1,14 @@
 <template>
-    <v-card>
-        <v-container fluid>
+    
+        <v-container>
+          <v-card>
         <v-card-title primary-title>
           <div>
             <h3 class="headline mb-0">{{ data.title }}</h3>
             <div class="grey--text"> {{ data.user }}  <strong>demande</strong>  {{ data.created_at }} </div>
           </div>
           <v-spacer></v-spacer>
-        <v-btn color="red">5 replies</v-btn>
+        <v-btn color="red" dark>{{ data.reply_count}} reponses</v-btn>
         </v-card-title>
         <v-card-text v-html="body"></v-card-text>
         <v-card-actions v-if="owner">
@@ -22,8 +23,10 @@
             </v-icon>
           </v-btn>
         </v-card-actions>
+         </v-card>
+         <v-divider></v-divider>
         </v-container>
-    </v-card>
+   
 </template>
 
 <script>
@@ -44,7 +47,7 @@ export default {
       axios
         .delete(`/api/question/${this.data.slug}`)
         .then(res => this.$router.push("/forum"))
-        .catch(error => console.log(error.response.data.error));
+        .catch(error => console.log(error.response.data.errors));
     },
     edit() {
       eventBus.$emit("startEditing");
