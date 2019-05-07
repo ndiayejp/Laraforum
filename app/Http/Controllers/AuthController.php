@@ -31,11 +31,21 @@ class AuthController extends Controller
     {
         $credentials = $request->only(['email', 'password']);
 
-        if ($token = JWTAuth::attempt($credentials)) {
-            return $this->respondWithToken($token);
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'We can`t find an account with this credentials.'
+                ], 401);
+            }
+        } catch (JWTException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to login, please try again.'
+            ], 500);
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return $this->respondWithToken($token);
     }
 
     public function signup(SignupRequest $request)
@@ -55,6 +65,16 @@ class AuthController extends Controller
     }
 
     /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
+
+    /**
      * Log the user out (Invalidate the token).
      *
      * @return \Illuminate\Http\JsonResponse
@@ -66,15 +86,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
+
 
     /**
      * Get the token array structure.

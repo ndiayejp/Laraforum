@@ -4,6 +4,8 @@
             <v-card-title>
                 <div class="headline">{{ data.user }}</div>
                 <div class="ml-2">a répondu il ya {{ data.created_at }}</div>
+                <v-spacer></v-spacer>
+                <like :content="data"></like>
             </v-card-title>
            
             <edit-reply v-if="editing" :reply=data></edit-reply>
@@ -24,7 +26,7 @@
 
 <script>
 import editReply from "./editReply";
-
+import Like from "../likes/like";
 export default {
   data() {
     return {
@@ -34,7 +36,7 @@ export default {
   created() {
     this.listen();
   },
-  components: { editReply },
+  components: { editReply, Like },
   props: ["data", "index"],
   computed: {
     own() {

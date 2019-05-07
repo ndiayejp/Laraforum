@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 Route::apiResource('/question', 'QuestionController');
 
@@ -12,6 +11,10 @@ Route::apiResource('/question/{question}/reply', 'ReplyController');
 Route::post('/like/{reply}', 'LikeController@LikeIt');
 
 Route::delete('/like/{reply}', 'LikeController@UnlikeIt');
+
+Route::post('/notifications', 'NotificationController@index');
+
+Route::post('/markAsRead', 'NotificationController@markAsRead');
 
 Route::group([
 
@@ -25,4 +28,6 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+
+    Route::get('user', 'AuthController@getAuthUser');
 });
