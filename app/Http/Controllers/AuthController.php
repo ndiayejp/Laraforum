@@ -35,7 +35,7 @@ class AuthController extends Controller
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'We can`t find an account with this credentials.'
+                    'message' => 'Invalid Email or Password.'
                 ], 401);
             }
         } catch (JWTException $e) {

@@ -1,17 +1,16 @@
 <template>
-    <v-card>
-        <v-toolbar color="cyan" dark> 
-          <v-toolbar-title>Categories</v-toolbar-title> 
-          <v-spacer></v-spacer>  
-        </v-toolbar>
-         <v-list>
-           <v-list-tile v-for="category in categories" :key="category.id">
-                 <v-list-tile-content>
-                    <v-list-tile-title>{{ category.name }}</v-list-tile-title>
-                 </v-list-tile-content>
-           </v-list-tile>
-         </v-list>
-    </v-card>
+  <div> 
+      <v-toolbar color="cyan" dark> 
+        <v-toolbar-title>Categories</v-toolbar-title> 
+        <v-spacer></v-spacer>  
+      </v-toolbar>
+          
+      <div class="layout row wrap">
+        <div class="flex lg2 sm6 xs12" v-for="category in categories" :key="category.id">
+            <div class="text-sm-center"><v-btn dark block large color="teal">{{ category.name }}</v-btn></div>
+        </div>
+      </div> 
+  </div>
 </template>
 
 <script>

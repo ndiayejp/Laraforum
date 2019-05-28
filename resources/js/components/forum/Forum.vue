@@ -1,15 +1,17 @@
 <template>
   <v-container fluid grid-list-md>
     <v-layout row wrap>
-      <v-flex xs8>
-         <question
-    v-for="question in questions" 
-    :key="question.path" 
-    :data=question></question>
-      </v-flex>
-      <v-flex xs4>
-        <app-sidebar></app-sidebar>
-      </v-flex>
+       <v-flex xs12>
+          <app-sidebar></app-sidebar>
+        </v-flex>
+        <v-flex>
+          <div class="layout row wrap">
+              <question
+                v-for="question in questions" 
+                :key="question.path" 
+                :data=question></question>
+          </div>
+        </v-flex> 
     </v-layout>
   </v-container>
 </template>

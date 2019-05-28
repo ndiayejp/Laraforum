@@ -1,6 +1,6 @@
 <template>
-  <v-toolbar>
-    <v-toolbar-title><router-link to="/">LaraForum</router-link></v-toolbar-title>
+  <v-toolbar dark flat color="blue darken-1">
+    <v-toolbar-title><router-link to="/"><h3 class="logo">LaraForum</h3></router-link></v-toolbar-title>
     <v-spacer></v-spacer>
     <app-notification v-if="loggedIn"></app-notification>
     <div class="hidden-sm-and-down">  
@@ -20,6 +20,7 @@ export default {
     return {
       items: [
         { title: "Forum", to: "/forum", show: true },
+        { title: "About", to: "/about", show: true },
         { title: "Login", to: "/login", show: !User.loggedIn() },
         { title: "Ask question", to: "/ask", show: User.loggedIn() },
         { title: "Category", to: "/category", show: User.admin() },
@@ -40,5 +41,8 @@ export default {
 <style>
 .application a {
   text-decoration: none;
+}
+a h3.logo {
+  color: #fff !important;
 }
 </style>

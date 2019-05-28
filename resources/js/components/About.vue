@@ -1,16 +1,14 @@
 <template>
     <section class="section">
         <div class="container">
-        <h1 class="title">About</h1>
-        <h2 class="subtitle">
-            lorem ipsom dolor sin amet 
-        </h2>
+        <h1>About LaraForum</h1>
+        <h4 class="subtitle">
+            A application base on Laravel, vuejs, Pusher, vutify and more...
+        </h4>
         </div>
     </section>
  </template>
 
 <script>
-    export default{
-
-    }
+export default {};
 </script>
