@@ -5,7 +5,12 @@
         <show-question :data=question  v-else></show-question>
         <v-container>
           <replies :question="question"></replies>
-          <new-reply :questionSlug="question.slug"></new-reply>
+          <new-reply v-if="loggedIn" :questionSlug="question.slug"></new-reply>
+          <div v-else>
+            <router-link to="/login">
+                <v-btn dark large color="green"> Login to reply?</v-btn>
+            </router-link>
+          </div>
         </v-container>
      </div>
   </div>
@@ -23,6 +28,11 @@ export default {
       question: null,
       editing: false
     };
+  },
+  computed: {
+    loggedIn() {
+      return User.loggedIn();
+    }
   },
   created() {
     this.listen();

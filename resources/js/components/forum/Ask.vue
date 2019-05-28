@@ -11,7 +11,7 @@
                 autocomplete
              ></v-select>
              <markdown-editor v-model="form.body"></markdown-editor>
-            <v-btn   color="primary" type="submit">  créer une question </v-btn>  
+            <v-btn   color="primary" type="submit" :disabled="disable">  créer une question </v-btn>  
         </v-form>
     </v-container>
 </template>
@@ -42,6 +42,11 @@ export default {
       .get("/api/category")
       .then(res => (this.categories = res.data.data))
       .catch(error => console.log(error.response.data.errors));
+  },
+  computed: {
+    disable() {
+      return !(this.form.title && this.form.body && this.form.category_id);
+    }
   }
 };
 </script>

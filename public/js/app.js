@@ -2065,6 +2065,11 @@ __webpack_require__.r(__webpack_exports__);
       loading: true
     };
   },
+  computed: {
+    disable: function disable() {
+      return !this.form.name;
+    }
+  },
   created: function created() {
     var _this = this;
 
@@ -2224,6 +2229,11 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (error) {
       return console.log(error.response.data.errors);
     });
+  },
+  computed: {
+    disable: function disable() {
+      return !(this.form.title && this.form.body && this.form.category_id);
+    }
   }
 });
 
@@ -2347,6 +2357,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2363,6 +2378,11 @@ __webpack_require__.r(__webpack_exports__);
       question: null,
       editing: false
     };
+  },
+  computed: {
+    loggedIn: function loggedIn() {
+      return User.loggedIn();
+    }
   },
   created: function created() {
     this.listen();
@@ -2490,7 +2510,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      owner: User.owner(this.data.user_id)
+      owner: User.owner(this.data.user_id),
+      replyCount: this.data.reply_count
     };
   },
   props: ["data"],
@@ -2499,12 +2520,28 @@ __webpack_require__.r(__webpack_exports__);
       return md.parse(this.data.body);
     }
   },
+  created: function created() {
+    var _this = this;
+
+    eventBus.$on("newReply", function () {
+      _this.replyCount++;
+    });
+    eventBus.$on("deleteReply", function () {
+      _this.replyCount--;
+    });
+    Echo["private"]("App.User." + User.id()).notification(function (notification) {
+      _this.replyCount++;
+    });
+    Echo.channel("deleteReplyChannel").listen("DeleteReplyEvent", function (e) {
+      _this.replyCount--;
+    });
+  },
   methods: {
     destroy: function destroy() {
-      var _this = this;
+      var _this2 = this;
 
       axios["delete"]("/api/question/".concat(this.data.slug)).then(function (res) {
-        return _this.$router.push("/forum");
+        return _this2.$router.push("/forum");
       })["catch"](function (error) {
         return console.log(error.response.data.errors);
       });
@@ -67969,7 +68006,13 @@ var render = function() {
                       )
                     : _c(
                         "v-btn",
-                        { attrs: { color: "primary", type: "submit" } },
+                        {
+                          attrs: {
+                            color: "primary",
+                            type: "submit",
+                            disabled: _vm.disable
+                          }
+                        },
                         [_vm._v("  créer une category ")]
                       )
                 ],
@@ -68218,9 +68261,13 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-btn", { attrs: { color: "primary", type: "submit" } }, [
-            _vm._v("  créer une question ")
-          ])
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "primary", type: "submit", disabled: _vm.disable }
+            },
+            [_vm._v("  créer une question ")]
+          )
         ],
         1
       )
@@ -68379,7 +68426,30 @@ var render = function() {
               [
                 _c("replies", { attrs: { question: _vm.question } }),
                 _vm._v(" "),
-                _c("new-reply", { attrs: { questionSlug: _vm.question.slug } })
+                _vm.loggedIn
+                  ? _c("new-reply", {
+                      attrs: { questionSlug: _vm.question.slug }
+                    })
+                  : _c(
+                      "div",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: "/login" } },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: { dark: "", large: "", color: "green" }
+                              },
+                              [_vm._v(" Login to reply?")]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
               ],
               1
             )
@@ -68515,7 +68585,7 @@ var render = function() {
               _c("v-spacer"),
               _vm._v(" "),
               _c("v-btn", { attrs: { color: "red", dark: "" } }, [
-                _vm._v(_vm._s(_vm.data.reply_count) + " reponses")
+                _vm._v(_vm._s(_vm.replyCount) + " reponses")
               ])
             ],
             1
@@ -110161,7 +110231,20 @@ function () {
   }, {
     key: "decode",
     value: function decode(payload) {
-      return JSON.parse(atob(payload));
+      if (this.isBase64(payload)) {
+        return JSON.parse(atob(payload));
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: "isBase64",
+    value: function isBase64(str) {
+      try {
+        return btoa(atob(str)).replace(/=/g, "") == str;
+      } catch (error) {
+        return false;
+      }
     }
   }]);
 
@@ -110227,7 +110310,7 @@ function () {
       var storeToken = _AppStorage__WEBPACK_IMPORTED_MODULE_1__["default"].getToken();
 
       if (storeToken) {
-        return _Token__WEBPACK_IMPORTED_MODULE_0__["default"].isValid(storeToken) ? true : false;
+        return _Token__WEBPACK_IMPORTED_MODULE_0__["default"].isValid(storeToken) ? true : this.logout();
       }
 
       return false;

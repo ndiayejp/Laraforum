@@ -8,7 +8,7 @@
             
             <v-card-actions>
               <v-btn color="teal" type="submit" v-if="editSlug">  Modifier </v-btn> 
-              <v-btn color="primary" type="submit" v-else>  créer une category </v-btn>   
+              <v-btn color="primary" type="submit" :disabled="disable" v-else>  créer une category </v-btn>   
             </v-card-actions> 
         </v-form>
       </v-card>
@@ -59,6 +59,11 @@ export default {
       editSlug: null,
       loading: true
     };
+  },
+  computed: {
+    disable() {
+      return !this.form.name;
+    }
   },
   created() {
     if (!User.admin()) {
