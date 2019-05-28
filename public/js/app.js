@@ -110073,6 +110073,52 @@ function () {
 
 /***/ }),
 
+/***/ "./resources/js/Helpers/Exception.js":
+/*!*******************************************!*\
+  !*** ./resources/js/Helpers/Exception.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./User */ "./resources/js/Helpers/User.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var Exception =
+/*#__PURE__*/
+function () {
+  function Exception() {
+    _classCallCheck(this, Exception);
+  }
+
+  _createClass(Exception, [{
+    key: "handle",
+    value: function handle(error) {
+      this.expired(error.response.data.error);
+    }
+  }, {
+    key: "expired",
+    value: function expired(error) {
+      if (error = "Token is invalid") {
+        _User__WEBPACK_IMPORTED_MODULE_0__["default"].logout();
+      }
+    }
+  }]);
+
+  return Exception;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Exception = new Exception());
+
+/***/ }),
+
 /***/ "./resources/js/Helpers/Token.js":
 /*!***************************************!*\
   !*** ./resources/js/Helpers/Token.js ***!
@@ -110323,9 +110369,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_simplemde__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-simplemde */ "./node_modules/vue-simplemde/dist/vue-simplemde.min.js");
 /* harmony import */ var vue_simplemde__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_simplemde__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _Helpers_User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Helpers/User */ "./resources/js/Helpers/User.js");
-/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! marked */ "./node_modules/marked/lib/marked.js");
-/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(marked__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _Router_routes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Router/routes.js */ "./resources/js/Router/routes.js");
+/* harmony import */ var _Helpers_Exception__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Helpers/Exception */ "./resources/js/Helpers/Exception.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! marked */ "./node_modules/marked/lib/marked.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(marked__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _Router_routes_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Router/routes.js */ "./resources/js/Router/routes.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -110342,13 +110389,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_
 
 window.User = _Helpers_User__WEBPACK_IMPORTED_MODULE_3__["default"];
 
-window.md = marked__WEBPACK_IMPORTED_MODULE_4___default.a;
+window.Exception = _Helpers_Exception__WEBPACK_IMPORTED_MODULE_4__["default"];
+
+window.md = marked__WEBPACK_IMPORTED_MODULE_5___default.a;
 window.eventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AppHome', __webpack_require__(/*! ./components/AppHome.vue */ "./resources/js/components/AppHome.vue")["default"]);
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  router: _Router_routes_js__WEBPACK_IMPORTED_MODULE_5__["default"]
+  router: _Router_routes_js__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
 
 /***/ }),
